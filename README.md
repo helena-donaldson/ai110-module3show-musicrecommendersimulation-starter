@@ -1,5 +1,9 @@
 # 🎵 Music Recommender Simulation
 
+## Terminal Output Image
+
+![Terminal Output]("codepath music rec.png")
+
 ## Project Summary
 
 In this project you will build and explain a small music recommender system.
@@ -28,6 +32,15 @@ Some prompts to answer:
 - How do you choose which songs to recommend
 
 You can include a simple diagram or bullet list if helpful.
+
+Answer:
+- Each `Song` in my system will store mood, energy, and tempo_bpm.
+- Each `UserProfile` in my system will store the mean and standard deviation of the mood, energy, and tempo_bpm of the songs they listen to.
+- For the recommender to score the songs, the recommender will compute the Gaussian value of each individual property, and then average all of the values.
+- Finally, to choose which songs to recommend, after the songs have been scored, the songs will be sorted in descending order, with the highest scoring songs being the first to be recommended.
+
+Potential Bias:
+- Since the system weights the metrics equally to develop the score, it might lead to under-weighting of certain metrics like genre. Overall, it might lead to less realistic recommendations.
 
 ---
 
