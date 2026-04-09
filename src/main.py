@@ -9,11 +9,32 @@ def main() -> None:
     songs = load_songs("data/songs.csv") 
     
     # Updated to match the logic: favorite_genre, preferred_mood, target_energy, target_tempo
+    # user_prefs = {
+    #     "favorite_genre": "pop", 
+    #     "preferred_mood": "happy", 
+    #     "target_energy": 0.8,
+    #     "target_tempo": 120.0
+    # }
+    
+    # user_prefs = {
+    #     "favorite_genre": "pop", 
+    #     "preferred_mood": "chill", 
+    #     "target_energy": 0.8,
+    #     "target_tempo": 140.0
+    # }
+    
     user_prefs = {
-        "favorite_genre": "pop", 
+        "favorite_genre": "rock", 
+        "preferred_mood": "happy", 
+        "target_energy": 0.2,
+        "target_tempo": 140.0
+    }
+    
+    user_prefs = {
+        "favorite_genre": "ambient", 
         "preferred_mood": "happy", 
         "target_energy": 0.8,
-        "target_tempo": 120.0
+        "target_tempo": 80.0
     }
 
     recommendations = recommend_songs(user_prefs, songs, k=5)
