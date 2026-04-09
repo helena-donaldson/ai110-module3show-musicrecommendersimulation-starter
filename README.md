@@ -1,8 +1,14 @@
 # 🎵 Music Recommender Simulation
 
-## Terminal Output Image
+## Terminal Output Images
 
 ![Terminal Output]("codepath music rec.png")
+
+User Preference Images:
+
+![User Pref Pop]("chill pop.png")
+![User Pref Rock]("happy rock.png")
+![User Pref Ambient]("happy ambient.png")
 
 ## Project Summary
 
@@ -15,7 +21,7 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+This project examines user's preferences with genre, tempo, mood, and energy to produce a list of song recommendations. It utilizes a Gaussian distance based formula in order to produce scoring, and then weights the final scores.
 
 ---
 
@@ -87,6 +93,8 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+I tried many experiments varying the users preferences and found that users preference regarding categorical values tended to be more favored than their continuous property values. For example, in trying user preferences for different genres like ambient, rock, and pop, the users genres were always put first when explained.
+
 ---
 
 ## Limitations and Risks
@@ -101,6 +109,8 @@ Examples:
 
 You will go deeper on this in your model card.
 
+It tends to favor genre over other preferences that are more continuous, like tempo. Also, it was only provided a very small data source, limiting the types of recommendations.
+
 ---
 
 ## Reflection
@@ -114,6 +124,9 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
+It was interesting learning about how the recommendation system evolves. It starts via preprocessing, then scoring, and then the weighting of those scores.
+
+I learned a lot about how data sources influence system outputs. Because the original data source in the songs.csv were so few in number, many of the genres were few in number or were not even represented at all. This leads to restricted options/outputs being shown to users.
 
 ---
 
@@ -128,7 +141,7 @@ Combines reflection and model card framing from the Module 3 guidance. :contentR
 
 Give your recommender a name, for example:
 
-> VibeFinder 1.0
+SongRecs 1.0
 
 ---
 
@@ -139,7 +152,9 @@ Give your recommender a name, for example:
 
 Example:
 
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
+This recommender generates song recommendations given user's preferences, which
+are assumed to be genre, mood, energy, and tempo preferences. This is for classroom
+exploration.
 
 ---
 
@@ -153,6 +168,20 @@ Describe your scoring logic in plain language.
 
 Try to avoid code in this section, treat it like an explanation to a non programmer.
 
+
+The following features are used:
+
+- Genre
+- Mood
+- Energy
+- Tempo
+
+These are also the same user preferences that are considered.
+
+The model takes user preferences and compares them to the actual song statistics, using a formula derived from the distance from the personal preference to the song value (a Gaussian-based formula). Smaller distance leads to higher scores, and vice versa. The highest scores are then recommended.
+
+User preference logic were changed from the initial to prioritize a smaller number of features, specifically the 4 listed above.
+
 ---
 
 ## 4. Data
@@ -163,6 +192,8 @@ Describe your dataset.
 - Did you add or remove any songs
 - What kinds of genres or moods are represented
 - Whose taste does this data mostly reflect
+
+There are 15 total songs, and genres including pop, lofi, rock, ambient, jazz, electronic, indie pop as well as happy, chill, intense, relaxed, moody, focused moods. I did not add or remove data. There are parts of musical taste missing- specifically, genres like rap are not represented.
 
 ---
 
@@ -175,6 +206,8 @@ You can think about:
 - Particular user profiles it served well
 - Simplicity or transparency benefits
 
+My system works well for users with a strong preference for genre over other preferences. My system also best captured the pattern of users who liked chill pop songs. The recommendation for chill pop songs also matched my intuition, and I believe this is because the data source best represented those categories.
+
 ---
 
 ## 6. Limitations and Bias
@@ -186,6 +219,8 @@ Some prompts:
 - Does it treat all users as if they have the same taste shape
 - Is it biased toward high energy or one genre by default
 - How could this be unfair if used in a real product
+
+The system most favors matches for genre and mood over other potential preferences (because exact matches for genre and mood are weighted heavily, more than the continous vairables), which can cause items like energy or tempo to be ignored. Additionally, because the pop category only considers exact matches instead of similar genres, this can ignore potentially better sub-fits. Additionally, because the grenre of pop is overrepresented in the sample, this may lead to biased recommendations.
 
 ---
 
@@ -200,6 +235,22 @@ Examples:
 
 You do not need a numeric metric, but if you used one, explain what it measures.
 
+Note: My screenshots for this were included at the top of the document.
+
+I tested three different user profiles. Each had a different genre (pop, rock, and ambient) as well as different mixes of energy, tempo, and mood. Ultimately, what surprised me was how genre matches consistently were the highest ranked, which after analysis was due to the fact that it was a categorical variable and thus an exact match was weighted heavily. 
+
+Calm pop beats profile:
+
+- Favored Gym Hero because it is a pop genre, with matches of energy and tempo being the next highest with Rooftop Lights and Bassline Theory.
+
+Happy ambient sounds profile:
+
+- Favored Morning Mist and Spacewalk Thoughts because both songs were from the same genre, ambient.
+
+Happy rock profile:
+
+- Favored Storm Runner because it was the matched genre, rock. But likely because it had the same mood as the previous, it had the same second recommended song, Morning Mist.
+
 ---
 
 ## 8. Future Work
@@ -212,6 +263,8 @@ Examples:
 - Balance diversity of songs instead of always picking the closest match
 - Use more features, like tempo ranges or lyric themes
 
+I would vastly expand the data source that the model is drawing from in order to provide a wider variety of song recommendations and get more genres recommended. Better explainability would also be great in order to allow people to have more confidence in what the model is recommending.
+
 ---
 
 ## 9. Personal Reflection
@@ -221,4 +274,6 @@ A few sentences about what you learned:
 - What surprised you about how your system behaved
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
+
+I learned more about howing the preprocessing and then scoring phases of these recommender systems work. It also encouraged me to think more about how data sources influence model outputs. AI tools allowed me to debug and also get a great scoring formula, which was very helpful, but I still double-checked the output.
 
